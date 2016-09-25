@@ -1,0 +1,10 @@
+{
+    "require": {
+        "erusev/parsedown": "1.6.0"
+    },
+    "autoload":{
+        "psr-4":{
+            "lib\\":"lib"
+        }
+    }
+}
