@@ -37,3 +37,9 @@ echo
 '以及' . $generated['index'] . '个索引页<br>',
 '生成目录为' . $mark2blog->htmlPath;
 ```
+
+##todo list
+* 生成rss
+* 美化模板
+* about等单页的处理
+* 临近文章导航
