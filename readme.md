@@ -18,7 +18,7 @@ $mark2blogConfig = array(
     'auth' => 'citywill',
     'description' => 'mark2blog是用于将md文档生成博客的php程序。目前支持简单的模板，分页索引等功能。',
     'mdPath' => APP_PATH . '/markdown',
-    'htmlPath' => APP_PATH . '/citywill.github.io',
+    'htmlPath' => APP_PATH . '/blog',
     'tmplPath' => APP_PATH . '/template/default',
     'pageSize' => 10,
 );
