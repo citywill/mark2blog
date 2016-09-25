@@ -41,10 +41,13 @@ class mark2blog
         foreach ($mdFiles as $wholeName => $mdFile) {
             $mdFilePath = $this->mdPath . '/' . $wholeName . '.md';
             $mdContent = file_get_contents($mdFilePath);
-            preg_match('/(?:^|\n)#([^#].*)/', $mdContent, $title);
-            $mdFiles[$wholeName]['title'] = $title[1];
+            //根据#获取文章标题
+            $titleExist = preg_match('/(?:^|\n)#([^#].*)/', $mdContent, $title);
+            //如果md文档中没有#，则使用文件名作为标题
+            $title = $titleExist ? $title[1] : $mdFile['fileName'];
+            $mdFiles[$wholeName]['title'] = $title;
+            $assign['title'] = $title;
             $assign['detail'] = $this->parse($mdContent);
-            $assign['title'] = $title[1];
             $assign['date'] = $mdFile['fileDate'];
 
             $this->generateHtml('article', $wholeName, $assign);
