@@ -4,6 +4,7 @@ include 'vendor/autoload.php';
 define('APP_PATH', dirname(__FILE__));
 
 $mark2blogConfig = array(
+    'url' => '',
     'title' => 'mark2blog',
     'auth' => 'citywill',
     'description' => 'mark2blog是用于将md文档生成博客的php程序。目前支持简单的模板，分页索引等功能。',

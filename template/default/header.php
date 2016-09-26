@@ -8,13 +8,14 @@
 " rel="stylesheet">
 <link rel="stylesheet" href="src/github-markdown.css">
 <style>
+.container {width:800px;}
 .head{
 text-align: center;
 border-bottom: 1px solid #eee;
 padding:30px;
 }
 .head h1{
-font-size:60px;
+font-size:48px;
 }
 .head p{
 font-size:24px;

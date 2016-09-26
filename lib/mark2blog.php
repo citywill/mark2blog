@@ -46,6 +46,7 @@ class mark2blog
             //如果md文档中没有#，则使用文件名作为标题
             $title = $titleExist ? $title[1] : $mdFile['fileName'];
             $mdFiles[$wholeName]['title'] = $title;
+            $assign['wholeName'] = $wholeName;
             $assign['title'] = $title;
             $assign['detail'] = $this->parse($mdContent);
             $assign['date'] = $mdFile['fileDate'];
