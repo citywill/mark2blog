@@ -8,7 +8,7 @@
 " rel="stylesheet">
 <link rel="stylesheet" href="src/github-markdown.css">
 <style>
-.container {width:800px;}
+.container {max-width:800px;}
 .head{
 text-align: center;
 border-bottom: 1px solid #eee;
