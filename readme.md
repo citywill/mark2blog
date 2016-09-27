@@ -12,7 +12,7 @@ mark2blog是用于将markdown文档生成博客的php程序。目前支持简单
 * markdown文档中使用#标记作为博客标题
 
 ##DEMO
-* [blog.pmzhang.com](http://citywill.github.io)
+* [citywill.github.io](http://citywill.github.io)
 
 ##例子
 ```php
