@@ -1,11 +1,19 @@
 <?php include $this->tmplPath . '/header.php'?>
+
+<div class="article">
+    <div class="page-header">
+        <h1><?php echo $assign['title'] ?> <small></small></h1>
+        <p style="padding-top:24px;">posted <?php echo $assign['date'] ?></p>
+    </div>
+
     <article class="markdown-body">
-    <p class="pull-right" style="padding-top:24px;">posted <?php echo $assign['date'] ?></p>
-    <?php echo $assign['detail'] ?>
+        <?php echo $assign['detail'] ?>
     </article >
+</div>
+
 
 <!-- 多说评论框 start -->
-    <div class="ds-thread" style="margin-top:30px;" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
+<div class="ds-thread" style="margin-top:30px;" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

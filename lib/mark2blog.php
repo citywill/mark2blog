@@ -39,29 +39,37 @@ class mark2blog
     {
         $mdFiles = $this->getMdFiles();
         foreach ($mdFiles as $wholeName => $mdFile) {
+            //构造md文档路径并获取md文档内容
             $mdFilePath = $this->mdPath . '/' . $wholeName . '.md';
             $mdContent = file_get_contents($mdFilePath);
-            //根据#获取文章标题
-            $titleExist = preg_match('/(?:^|\n)#([^#].*)/', $mdContent, $title);
-            //如果md文档中没有#，则使用文件名作为标题
-            $title = $titleExist ? $title[1] : $mdFile['fileName'];
-            $mdFiles[$wholeName]['title'] = $title;
+
+            //获取文本头信息，并返回剩余文本
+            $head = $this->getHead($mdContent, $mdContent);
+
+            //生成文章列表数据
+            $articles[$wholeName] = array_merge($mdFiles[$wholeName], $head);
+
+            //构造模板变量
+            $assign = $articles[$wholeName];
             $assign['wholeName'] = $wholeName;
-            $assign['title'] = $title;
-            $assign['detail'] = $this->parse($mdContent);
             $assign['date'] = $mdFile['fileDate'];
+            $assign['detail'] = $this->parse($mdContent);
 
             $this->generateHtml('article', $wholeName, $assign);
         }
-        $this->index2Html($mdFiles);
-        $this->generated['article'] = count($mdFiles);
+
+        //生成结果数据：生成文章数量
+        $this->generated['article'] = count($articles);
+
+        //生成索引页
+        $this->index2Html($articles);
     }
 
     /**
      * 获取markdown文档列表
      * @return array
      */
-    private function getMdFiles()
+    protected function getMdFiles()
     {
         $mdFiles = array_diff(scandir($this->mdPath), array('..', '.'));
         if (!$mdFiles) {
@@ -81,6 +89,7 @@ class mark2blog
 
                 $files[$fileWholeName] = [
                     'fileName' => $fileName,
+                    'title' => str_replace('-', ' ', $fileName),
                     'fileDate' => date('Y-m-d', $fileDate),
                 ];
             }
@@ -92,7 +101,7 @@ class mark2blog
      * 生成索引页
      * @param  array $articles 文章数组
      */
-    private function index2Html($articles)
+    protected function index2Html($articles)
     {
         krsort($articles);
         $articleCount = count($articles);
@@ -115,7 +124,7 @@ class mark2blog
      * @param  int $pageCurrent 当前页
      * @return array
      */
-    private function getPagination($pageCount, $pageCurrent)
+    protected function getPagination($pageCount, $pageCurrent)
     {
         for ($i = 0; $i < $pageCount; $i++) {
             $pagination[$i]['filename'] = 'index' . ($i ? ('-' . ($i + 1)) : '');
@@ -131,7 +140,7 @@ class mark2blog
      * @param  string $filename 生成的文件名
      * @param  array $assign   向模板传值
      */
-    private function generateHtml($tmpl, $filename, $assign)
+    protected function generateHtml($tmpl, $filename, $assign)
     {
         ob_start();
         include $this->tmplPath . '/' . $tmpl . '.php';
@@ -142,11 +151,48 @@ class mark2blog
     }
 
     /**
+     * 获取md文档的头信息
+     * @param  string $mdContent md文档内容
+     * @param  string &$mdContentBody 返回去掉头信息的文档内容
+     * @return array 头信息数组
+     */
+    protected function getHead($mdContent, &$mdContentBody)
+    {
+        $mdContentBody = trim($mdContent);
+        //匹配头信息
+        if (preg_match('/^-{3,}(.*)-{3,}/s', $mdContentBody, $headReg)) {
+            list($headStr, $head) = $headReg;
+
+            //将头信息从内容中删除
+            $mdContentBody = trim(substr($mdContentBody, strlen($headStr) - strlen($mdContentBody)));
+
+            //判断头信息是否有效
+            if (preg_match_all('/(.*):(.*)/m', $head, $headDataArr)) {
+                foreach ($headDataArr[1] as $key => $value) {
+                    $headData[trim($value)] = trim($headDataArr[2][$key]);
+                }
+            }
+        }
+
+        //判断是否获取到标题
+        if (!isset($headData['title'])) {
+
+            //根据#获取文章标题
+            if (preg_match('/^#([^#].*)/', $mdContentBody, $title)) {
+                $headData['title'] = trim($title[1]);
+                $mdContentBody = trim(substr($mdContentBody, strlen($title[1]) - strlen($mdContentBody)));
+            }
+        }
+
+        return $headData;
+    }
+
+    /**
      * 解析md文件
      * @param  string $mdfile md文件路径
      * @return string html
      */
-    private function parse($md, $line = false)
+    protected function parse($md, $line = false)
     {
         $Parsedown = new \Parsedown();
         if ($line) {

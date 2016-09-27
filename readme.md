@@ -41,11 +41,36 @@ echo
 '生成目录为' . $mark2blog->htmlPath;
 ```
 
+##markdown
+* 文档命名格式参考：`2015-08-31_note-agilely-with-workflowy.md`
+* 头信息必须在文件的开始部分，并且需要按照YAML的格式（目前不支持多层）写在两行三个（或以上）虚线之间。头信息可以在模板中通过$assign数组获取
+* 文档首行#标注的标题，将作为title头信息处理
+
+```markdown
+---
+title: 用 Workflowy 高效记笔记
+---
+
+常在知乎看到有人这么推销笔记技巧：
+
+![糟糕的笔记](src/2015-08-31_note-agilely-with-workflowy_godness.jpg)
+```
+
+或者
+
+```markdown
+#用 Workflowy 高效记笔记
+
+常在知乎看到有人这么推销笔记技巧：
+
+![糟糕的笔记](src/2015-08-31_note-agilely-with-workflowy_godness.jpg)
+```
+
 ##todo list
 * 生成rss
 * 美化模板
 * about等单页的处理
 * 临近文章导航
 * 分类和标签
-* 兼容jekyll
 * ~~增加评论模块~~
+* ~~解析头信息~~
