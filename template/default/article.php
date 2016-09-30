@@ -3,7 +3,11 @@
 <div class="article">
     <div class="page-header">
         <h1><?php echo $assign['title'] ?> <small></small></h1>
-        <p style="padding-top:24px;">posted <?php echo $assign['date'] ?></p>
+        <?php if (isset($assign['update'])): ?>
+            <p style="padding-top:24px;" title="posted <?php echo $assign['date'] ?>">update <?php echo $assign['update'] ?></p>
+        <?php else: ?>
+            <p style="padding-top:24px;">posted <?php echo $assign['date'] ?></p>
+        <?php endif?>
     </div>
 
     <article class="markdown-body">
