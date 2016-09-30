@@ -7,28 +7,28 @@ class mark2blog
     public $auth = 'citywill';
     public $description = 'mark2blog是用于将md文档生成博客的php程序。目前支持简单的模板，分页索引等功能。';
     public $pageSize = 10;
-    public $mdPath;
-    public $htmlPath;
-    public $tmplPath;
+    public $mdPath = 'markdown';
+    public $htmlPath = 'html';
+    public $tmplPath = 'template';
     public $generated;
 
     /**
      * 设置
      * @param array $config
      */
-    public function __construct($config)
+    public function __construct(array $config = array())
     {
         foreach ($config as $key => $value) {
             $this->$key = $value;
         }
         if (!file_exists($this->mdPath)) {
-            throw new \Exception('mdPath is not exist');
+            throw new \Exception('mdPath does not exist');
         }
         if (!file_exists($this->htmlPath)) {
-            throw new \Exception('htmlPath is not exist');
+            throw new \Exception('htmlPath does not exist');
         }
         if (!file_exists($this->tmplPath)) {
-            throw new \Exception('tmplPath is not exist');
+            throw new \Exception('tmplPath does not exist');
         }
     }
 
@@ -196,7 +196,7 @@ class mark2blog
     {
         $mdContentBody = trim($mdContent);
         //匹配头信息
-        if (preg_match('/^-{3,}(.*)-{3,}/s', $mdContentBody, $headReg)) {
+        if (preg_match('/^-{3,}(.*?)-{3,}/s', $mdContentBody, $headReg)) {
             list($headStr, $head) = $headReg;
 
             //将头信息从内容中删除
@@ -219,7 +219,6 @@ class mark2blog
                 $mdContentBody = trim(substr($mdContentBody, strlen($title[1]) - strlen($mdContentBody)));
             }
         }
-
         return $headData;
     }
 
