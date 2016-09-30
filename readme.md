@@ -2,6 +2,9 @@
 
 mark2blog是用于将markdown文档生成博客的php程序。目前支持简单的模板，分页索引等功能。
 
+##github
+* http://github.com/citywill/mark2blog
+
 ##依赖
 * https://github.com/erusev/parsedown
 * https://github.com/sindresorhus/github-markdown-css
@@ -12,7 +15,7 @@ mark2blog是用于将markdown文档生成博客的php程序。目前支持简单
 * markdown文档中使用#标记作为博客标题
 
 ##DEMO
-* [citywill.github.io](http://citywill.github.io)
+* [blog.pmzhang.com](http://blog.pmzhang.com)
 
 ##例子
 ```php
