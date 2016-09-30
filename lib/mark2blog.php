@@ -167,6 +167,7 @@ class mark2blog
             $pagination[$i]['active'] = (($i == $pageCurrent) ? true : false);
             $pagination[$i]['name'] = $i + 1;
         }
+
         return $pagination;
     }
 
@@ -203,7 +204,7 @@ class mark2blog
             $mdContentBody = trim(substr($mdContentBody, strlen($headStr) - strlen($mdContentBody)));
 
             //判断头信息是否有效
-            if (preg_match_all('/(.*):(.*)/m', $head, $headDataArr)) {
+            if (preg_match_all('/([^:]*):(.*)/m', $head, $headDataArr)) {
                 foreach ($headDataArr[1] as $key => $value) {
                     $headData[trim($value)] = trim($headDataArr[2][$key]);
                 }
