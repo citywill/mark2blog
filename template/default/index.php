@@ -1,24 +1,47 @@
 <?php include $this->tmplPath . '/header.php'?>
-    <div id="list">
-        <ul class="list-group">
-        <?php foreach ($assign['articles'] as $key => $article): ?>
-            <li class="list-group-item">
-                <a href="<?php echo $key ?>.html" style="font-size:20px;">
-                    <?php echo $article['title'] ?>
 
-                </a>
-                <span class="pull-right"><?php echo $article['fileDate'] ?></span>
-            </li>
-        <?php endforeach?>
-        </ul>
+<div id="articleList">
+
+<?php foreach ($assign['articles'] as $key => $article): ?>
+
+    <div class="page-header">
+
+        <h2>
+            <a href="<?php echo $key ?>.html">
+                <?php echo $article['title'] ?>
+            </a>
+        </h2>
+
+        <?php if (isset($article['update'])): ?>
+            <p class="status" title="posted <?php echo $article['date'] ?>">update <?php echo $article['update'] ?></p>
+        <?php else: ?>
+            <p class="status">posted <?php echo $article['date'] ?></p>
+        <?php endif?>
+
+        <?php if (isset($article['excerpt'])): ?>
+            <p class="excerpt"><?php echo $article['excerpt'] ?></p>
+        <?php endif?>
+
+        <?php if (isset($article['image'])): ?>
+            <p class="image"><img class="img-responsive" src="<?php echo $article['image'] ?>" alt="<?php echo isset($article['imageAlt']) ? $article['imageAlt'] : $article['title']; ?>" /></p>
+        <?php endif?>
+
     </div>
-    <nav>
-        <ul class="pagination">
-        <?php foreach ($assign['pagination'] as $page): ?>
-            <li <?php if ($page['active']): ?>class="active"<?php endif?>>
-                <a href="<?php echo $page['filename'] ?>.html"><?php echo $page['name'] ?></a>
-            </li>
-        <?php endforeach?>
-        </ul>
-    </nav>
+
+<?php endforeach?>
+
+</div>
+
+<?php if (count($assign['pagination']) > 1): ?>
+<nav>
+    <ul class="pagination">
+    <?php foreach ($assign['pagination'] as $page): ?>
+        <li <?php if ($page['active']): ?>class="active"<?php endif?>>
+            <a href="<?php echo $page['filename'] ?>.html"><?php echo $page['name'] ?></a>
+        </li>
+    <?php endforeach?>
+    </ul>
+</nav>
+<?php endif?>
+
 <?php include $this->tmplPath . '/footer.php'?>

@@ -8,31 +8,57 @@
 " rel="stylesheet">
 <link rel="stylesheet" href="src/github-markdown.css">
 <style>
-.container {max-width:800px;}
-.head{
-text-align: center;
-border-bottom: 1px solid #eee;
-padding:30px;
-background-color: #159957;
-background-image:linear-gradient(120deg, #155799, #159957);
-color:#ffffff;
+body{background-color: #F2F2F2;}
+.container {max-width:750px;}
+#bloghead{
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding:30px;
+    background-color: #159957;
+    background-image:linear-gradient(120deg, #155799, #159957);
+    color:#ffffff;
 }
-.head a{
-color:#ffffff;
+#bloghead a {color:#ffffff;}
+#bloghead h1 {font-size:48px;}
+#bloghead p {font-size:24px;}
+
+.comment,
+#article article,
+#article .page-header,
+#articleList .page-header {
+    background-color:#FFF;
+    padding:40px;
+    border:1px solid #eee;
+    margin:30px 0;
 }
-.head h1{
-font-size:48px;
+
+.comment .page-header {
+    margin:0;
 }
-.head p{
-font-size:24px;
+
+.comment .page-header h3,
+#article .page-header h1,
+#articleList .page-header h2 {
+    margin: 0px;
+}
+#articleList .page-header h2 a{
+    color:#000;
+}
+
+#article .page-header p.status,
+#articleList .page-header p.status,
+#articleList .page-header p.image,
+#articleList .page-header p.excerpt{
+    font-size:1.2em;
+    margin:0px;
+    margin-top:20px;
 }
 </style>
 </head>
 <body>
-<div class="head">
+<div id="bloghead">
     <div class="container">
         <h1><a href="index.html"><?php echo $this->title ?></a></h1>
-        <p>by <?php echo $this->auth ?></p>
         <p><?php echo $this->description ?></p>
     </div>
 </div>

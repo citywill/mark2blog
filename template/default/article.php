@@ -1,12 +1,12 @@
 <?php include $this->tmplPath . '/header.php'?>
 
-<div class="article">
+<div id="article">
     <div class="page-header">
         <h1><?php echo $assign['title'] ?> <small></small></h1>
         <?php if (isset($assign['update'])): ?>
-            <p style="padding-top:24px;" title="posted <?php echo $assign['date'] ?>">update <?php echo $assign['update'] ?></p>
+            <p class="status" title="posted <?php echo $assign['date'] ?>">update <?php echo $assign['update'] ?></p>
         <?php else: ?>
-            <p style="padding-top:24px;">posted <?php echo $assign['date'] ?></p>
+            <p class="status">posted <?php echo $assign['date'] ?></p>
         <?php endif?>
     </div>
 
@@ -15,7 +15,7 @@
     </article >
 </div>
 
-<nav style="margin-top:50px;">
+<nav>
   <ul class="pager">
 <?php if (isset($assign['previous'])): ?>
     <li class="previous"><a href="<?php echo $assign['previous']['wholeName'] ?>.html">&larr; <?php echo $assign['previous']['title'] ?></a></li>
@@ -26,10 +26,15 @@
   </ul>
 </nav>
 
+<div class="comment">
+    <div class="page-header">
+        <h3>评论</h3>
+    </div>
 <!-- 多说评论框 start -->
-<div class="ds-thread" style="margin-top:50px;" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
+    <div class="ds-thread" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+</div>
 <script type="text/javascript">
 var duoshuoQuery = {short_name:"pmzhang"};
     (function() {
