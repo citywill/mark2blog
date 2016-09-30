@@ -11,9 +11,19 @@
     </article >
 </div>
 
+<nav style="margin-top:50px;">
+  <ul class="pager">
+<?php if (isset($assign['previous'])): ?>
+    <li class="previous"><a href="<?php echo $assign['previous']['wholeName'] ?>.html">&larr; <?php echo $assign['previous']['title'] ?></a></li>
+<?php endif?>
+<?php if (isset($assign['next'])): ?>
+    <li class="next"><a href="<?php echo $assign['next']['wholeName'] ?>.html"><?php echo $assign['next']['title'] ?> &rarr;</a></li>
+<?php endif?>
+  </ul>
+</nav>
 
 <!-- 多说评论框 start -->
-<div class="ds-thread" style="margin-top:30px;" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
+<div class="ds-thread" style="margin-top:50px;" data-thread-key="<?php echo $assign['wholeName'] ?>" data-title="<?php echo $assign['title'] ?>" data-url="<?php echo $this->url . '/' . $assign['wholeName'] . '.html' ?>"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

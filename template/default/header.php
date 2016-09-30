@@ -13,6 +13,12 @@
 text-align: center;
 border-bottom: 1px solid #eee;
 padding:30px;
+background-color: #159957;
+background-image:linear-gradient(120deg, #155799, #159957);
+color:#ffffff;
+}
+.head a{
+color:#ffffff;
 }
 .head h1{
 font-size:48px;

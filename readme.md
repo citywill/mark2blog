@@ -1,4 +1,4 @@
-#Mark2blog
+#Mark2blog，将markdown文档生成博客的php程序
 
 mark2blog是用于将markdown文档生成博客的php程序。目前支持简单的模板，分页索引等功能。
 
@@ -69,8 +69,10 @@ title: 用 Workflowy 高效记笔记
 ##todo list
 * 生成rss
 * 美化模板
+    * 摘要
+    * 标题图片
 * about等单页的处理
-* 临近文章导航
 * 分类和标签
+* ~~临近文章导航~~
 * ~~增加评论模块~~
 * ~~解析头信息~~

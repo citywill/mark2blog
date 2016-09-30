@@ -38,22 +38,53 @@ class mark2blog
     public function run()
     {
         $mdFiles = $this->getMdFiles();
+
+        //为计算相邻文章
+        $mdFileNames = array_keys($mdFiles);
+        $i = 0;
+
         foreach ($mdFiles as $wholeName => $mdFile) {
             //构造md文档路径并获取md文档内容
             $mdFilePath = $this->mdPath . '/' . $wholeName . '.md';
+
             $mdContent = file_get_contents($mdFilePath);
 
             //获取文本头信息，并返回剩余文本
             $head = $this->getHead($mdContent, $mdContent);
 
-            //生成文章列表数据
+            //生成文章数据
             $articles[$wholeName] = array_merge($mdFiles[$wholeName], $head);
+            $articles[$wholeName]['wholeName'] = $wholeName;
+            $articles[$wholeName]['date'] = $mdFile['fileDate'];
+            $articles[$wholeName]['detail'] = $this->parse($mdContent);
 
-            //构造模板变量
-            $assign = $articles[$wholeName];
-            $assign['wholeName'] = $wholeName;
-            $assign['date'] = $mdFile['fileDate'];
-            $assign['detail'] = $this->parse($mdContent);
+            //上一篇文章
+            if (isset($mdFileNames[$i - 1])) {
+                $articles[$wholeName]['previous']['wholeName'] = $mdFileNames[$i - 1];
+            }
+
+            //下一篇文章
+            if (isset($mdFileNames[$i + 1])) {
+                $articles[$wholeName]['next']['wholeName'] = $mdFileNames[$i + 1];
+            }
+
+            $i++;
+        }
+
+        //生成文章
+        foreach ($articles as $wholeName => $article) {
+            $assign = $article;
+
+            //相邻文章
+            if (isset($article['previous'])) {
+                $previous = $article['previous']['wholeName'];
+                $assign['previous']['title'] = $articles[$previous]['title'];
+            }
+
+            if (isset($article['next'])) {
+                $next = $article['next']['wholeName'];
+                $assign['next']['title'] = $articles[$next]['title'];
+            }
 
             $this->generateHtml('article', $wholeName, $assign);
         }
@@ -104,9 +135,14 @@ class mark2blog
     protected function index2Html($articles)
     {
         krsort($articles);
+
         $articleCount = count($articles);
+
         $pageCount = (int) ceil($articleCount / $this->pageSize);
+
+        //将数组按照页数分割
         $pages = array_chunk($articles, $this->pageSize, true);
+
         foreach ($pages as $pageCurrent => $articles) {
             $assign['articles'] = $articles;
             $assign['title'] = $pageCurrent ? ('第' . ($pageCurrent + 1) . '页') : '';
