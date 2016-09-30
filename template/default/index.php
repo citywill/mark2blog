@@ -2,12 +2,12 @@
 
 <div id="articleList">
 
-<?php foreach ($assign['articles'] as $key => $article): ?>
+<?php foreach ($assign['articles'] as $wholeName => $article): ?>
 
     <div class="page-header">
 
         <h2>
-            <a href="<?php echo $key ?>.html">
+            <a href="<?php echo $wholeName ?>.html">
                 <?php echo $article['title'] ?>
             </a>
         </h2>
@@ -25,6 +25,10 @@
         <?php if (isset($article['image'])): ?>
             <p class="image"><img class="img-responsive" src="<?php echo $article['image'] ?>" alt="<?php echo isset($article['imageAlt']) ? $article['imageAlt'] : $article['title']; ?>" /></p>
         <?php endif?>
+
+        <p class="readmore" style="text-align: right">
+            <a href="<?php echo $wholeName ?>.html" class="btn btn-danger">阅读全文</a>
+        </p>
 
     </div>
 
