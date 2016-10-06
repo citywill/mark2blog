@@ -7,6 +7,7 @@
 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css
 " rel="stylesheet">
 <link rel="stylesheet" href="src/github-markdown.css">
+<link rel="shortcut icon" href="src/favicon.ico" type="image/x-icon">
 <style>
 
 body {background-color: #F2F2F2;}
@@ -63,9 +64,35 @@ body {background-color: #F2F2F2;}
     color: #444;
 }
 
+#article .page-header p.status,
+#articleList .page-header p.status,
 #articleList .page-header p.excerpt {
     color: #6B6B6B;
 }
+
+@media (max-width: 480px) {
+    .comment,
+    #article article,
+    #article .page-header,
+    #articleList .page-header {
+        padding:20px;
+        margin:20px 0;
+    }
+
+    #article .page-header p.status,
+    #articleList .page-header p.status,
+    #articleList .page-header p.image,
+    #articleList .page-header p.readmore,
+    #articleList .page-header p.excerpt {
+        margin-top:20px;
+    }
+
+    #article .page-header h1,
+    #articleList .page-header h2 a {
+        font-size:24px;
+    }
+}
+
 </style>
 </head>
 <body>

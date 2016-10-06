@@ -12,11 +12,7 @@
             </a>
         </h2>
 
-        <?php if (isset($article['update'])): ?>
-            <p class="status" title="posted <?php echo $article['date'] ?>">update <?php echo $article['update'] ?></p>
-        <?php else: ?>
-            <p class="status">posted <?php echo $article['date'] ?></p>
-        <?php endif?>
+        <p class="status"><span<?php if (isset($article['update'])): ?> title="updated <?php echo $article['update'] ?>"<?php endif?>>posted <?php echo $article['date'] ?></span></p>
 
         <?php if (isset($article['excerpt'])): ?>
             <p class="excerpt"><?php echo $article['excerpt'] ?></p>
