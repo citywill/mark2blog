@@ -24,8 +24,13 @@ body {background-color: #F2F2F2;}
 }
 
 #bloghead a {color:#ffffff;}
-#bloghead h1 {font-size:48px;}
-#bloghead p {font-size:24px;}
+#bloghead h1 {font-size:3em;}
+#bloghead p {font-size:2em;}
+
+#bloghead span.label {
+    font-size:0.5em;
+    font-weight: normal
+}
 
 .comment,
 #article article,
@@ -100,6 +105,10 @@ body {background-color: #F2F2F2;}
         <div class="container">
             <h1><a href="index.html"><?php echo $this->title ?></a></h1>
             <p><?php echo $this->description ?></p>
+            <p>
+                <a href="https://www.zhihu.com/people/pmzhang" target="_blank"><span class="label label-primary">知乎</span></a>
+                <a href="http://weibo.com/citywill" target="_blank"><span class="label label-danger">微博</span></a>
+            </p>
         </div>
     </div>
     <div class="container" style="padding-top:30px;padding-bottom:30px;">
