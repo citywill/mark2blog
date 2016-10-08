@@ -3,6 +3,7 @@ namespace lib;
 
 class mark2blog
 {
+    public $url = '';
     public $title = 'Mark2blog';
     public $auth = 'citywill';
     public $description = 'mark2blog是用于将md文档生成博客的php程序。目前支持简单的模板，分页索引等功能。';
@@ -91,6 +92,9 @@ class mark2blog
 
         //生成结果数据：生成文章数量
         $this->generated['article'] = count($articles);
+
+        //生成rss
+        $this->generateRss($articles);
 
         //生成索引页
         $this->index2Html($articles);
@@ -185,6 +189,43 @@ class mark2blog
         ob_end_clean();
 
         file_put_contents($this->htmlPath . '/' . $filename . '.html', $html);
+    }
+
+    /**
+     * 生成rss
+     */
+    protected function generateRss($articles)
+    {
+        krsort($articles);
+
+        $rss = '<?xml version="1.0" encoding="utf-8" ?>
+            <rss version="2.0">
+            <channel>
+            <title><![CDATA[' . $this->title . ']]></title>
+            <description><![CDATA[' . $this->description . ']]></description>
+            <link>' . $this->url . '</link>
+            <language>zh_CN</language>
+            <pubDate>' . date('Y-m-d H:i:s', time()) . '</pubDate>
+            <lastBuildDate>' . date('Y-m-d H:i:s', time()) . '</lastBuildDate>
+            <generator>' . $this->auth . '</generator>
+            <ttl>600</ttl>
+        ';
+
+        foreach ($articles as $key => $value) {
+            $rss .= '
+                <item>
+                    <title><![CDATA[' . $value['title'] . ']]></title>
+                    <link>' . $this->url . '/' . $value['wholename'] . '.html</link>
+                    <description><![CDATA[' . $value['excerpt'] . ']]></description>
+                    <pubDate>' . $value['data'] . '</pubDate>
+                </item>';
+        }
+
+        $rss .= '</channel></rss>';
+
+        file_put_contents($this->htmlPath . '/atom.xml', $rss);
+
+        $this->generated['rss'] = 'atom.xml';
     }
 
     /**

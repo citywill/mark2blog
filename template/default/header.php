@@ -108,6 +108,7 @@ body {background-color: #F2F2F2;}
             <p>
                 <a href="https://www.zhihu.com/people/pmzhang" target="_blank"><span class="label label-primary">知乎</span></a>
                 <a href="http://weibo.com/citywill" target="_blank"><span class="label label-danger">微博</span></a>
+                <a href="atom.xml" target="_blank"><span class="label label-warning">RSS</span></a>
             </p>
         </div>
     </div>
