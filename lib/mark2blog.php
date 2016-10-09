@@ -40,10 +40,6 @@ class mark2blog
     {
         $mdFiles = $this->getMdFiles();
 
-        //为计算相邻文章
-        $mdFileNames = array_keys($mdFiles);
-        $i = 0;
-
         foreach ($mdFiles as $wholeName => $mdFile) {
             //构造md文档路径并获取md文档内容
             $mdFilePath = $this->mdPath . '/' . $wholeName . '.md';
@@ -53,45 +49,49 @@ class mark2blog
             //获取文本头信息，并返回剩余文本
             $head = $this->getHead($mdContent, $mdContent);
 
-            //生成文章数据
-            $articles[$wholeName] = array_merge($mdFiles[$wholeName], $head);
-            $articles[$wholeName]['wholeName'] = $wholeName;
-            $articles[$wholeName]['date'] = $mdFile['fileDate'];
-            $articles[$wholeName]['detail'] = $this->parse($mdContent);
+            //文章数据
+            $data = array();
+            $data = array_merge($mdFiles[$wholeName], $head);
+            $data['wholeName'] = $wholeName;
+            $data['date'] = $mdFile['fileDate'];
+            $data['detail'] = $this->parse($mdContent);
 
-            //上一篇文章
-            if (isset($mdFileNames[$i - 1])) {
-                $articles[$wholeName]['previous']['wholeName'] = $mdFileNames[$i - 1];
+            if (isset($head['type']) && $head['type'] == 'single') {
+                //生成独立文章
+                $this->generateHtml('article', $wholeName, $data);
+            } else {
+                //准备索引文章数据
+                $articles[$wholeName] = $data;
+            }
+        }
+
+        //计算索引文章的相邻
+        $articleKeys = array_keys($articles);
+        $i = 0;
+
+        //生成索引文章
+        foreach ($articles as $wholeName => $article) {
+
+            //相邻文章
+            if (isset($articleKeys[$i - 1])) {
+                $article['previous']['wholeName'] = $articleKeys[$i - 1];
+                $article['previous']['title'] = $articles[$articleKeys[$i - 1]]['title'];
             }
 
-            //下一篇文章
-            if (isset($mdFileNames[$i + 1])) {
-                $articles[$wholeName]['next']['wholeName'] = $mdFileNames[$i + 1];
+            if (isset($articleKeys[$i + 1])) {
+                $article['next']['wholeName'] = $articleKeys[$i + 1];
+                $article['next']['title'] = $articles[$articleKeys[$i + 1]]['title'];
             }
+
+            $assign = $article;
+
+            $this->generateHtml('article', $wholeName, $assign);
 
             $i++;
         }
 
-        //生成文章
-        foreach ($articles as $wholeName => $article) {
-            $assign = $article;
-
-            //相邻文章
-            if (isset($article['previous'])) {
-                $previous = $article['previous']['wholeName'];
-                $assign['previous']['title'] = $articles[$previous]['title'];
-            }
-
-            if (isset($article['next'])) {
-                $next = $article['next']['wholeName'];
-                $assign['next']['title'] = $articles[$next]['title'];
-            }
-
-            $this->generateHtml('article', $wholeName, $assign);
-        }
-
         //生成结果数据：生成文章数量
-        $this->generated['article'] = count($articles);
+        $this->generated['article'] = count($mdFiles);
 
         //生成rss
         $this->generateRss($articles);
@@ -152,7 +152,11 @@ class mark2blog
             $assign['title'] = $pageCurrent ? ('第' . ($pageCurrent + 1) . '页') : '';
             $assign['pageCurrent'] = $pageCurrent;
             $assign['pageCount'] = $pageCount;
+
+            //获得分页
             $assign['pagination'] = $this->getPagination($pageCount, $pageCurrent);
+
+            //生成列表页
             $this->generateHtml('index', $assign['pagination'][$pageCurrent]['filename'], $assign);
         }
         $this->generated['index'] = $pageCount;
