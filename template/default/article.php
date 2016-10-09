@@ -15,6 +15,7 @@
     </article >
 </div>
 
+<?php if (isset($assign['previous']) || isset($assign['next'])): ?>
 <nav>
   <ul class="pager">
 <?php if (isset($assign['previous'])): ?>
@@ -25,6 +26,7 @@
 <?php endif?>
   </ul>
 </nav>
+<?php endif?>
 
 <div class="comment">
     <div class="page-header">
