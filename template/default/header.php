@@ -20,12 +20,17 @@ body {background-color: #F2F2F2;}
     padding:30px;
     background-color: #159957;
     background-image:linear-gradient(120deg, #155799, #159957);
+}
+
+#bloghead h1 a {
+    font-size:1.2em;
     color:#ffffff;
 }
 
-#bloghead a {color:#ffffff;}
-#bloghead h1 {font-size:3em;}
-#bloghead p {font-size:2em;}
+#bloghead p.description {
+    font-size:1.6em;
+    color:#ffffff;
+}
 
 #bloghead span.label {
     font-size:0.5em;
@@ -104,12 +109,13 @@ body {background-color: #F2F2F2;}
     <div id="bloghead">
         <div class="container">
             <h1><a href="index.html"><?php echo $this->title ?></a></h1>
-            <p><?php echo $this->description ?></p>
-            <p>
-                <a href="https://www.zhihu.com/people/pmzhang" target="_blank"><span class="label label-primary">知乎</span></a>
-                <a href="http://weibo.com/citywill" target="_blank"><span class="label label-danger">微博</span></a>
-                <a href="2016-10-09_about.html"><span class="label label-success">关于</span></a>
-                <a href="atom.xml" target="_blank"><span class="label label-warning">RSS</span></a>
+            <p class="description"><?php echo $this->description ?></p>
+            <p class="nav">
+                <a href="index.html" class="btn btn-default btn-xs">首页</a>
+                <a href="https://www.zhihu.com/people/pmzhang" target="_blank" class="btn btn-primary btn-xs">知乎</a>
+                <a href="http://weibo.com/citywill" target="_blank" class="btn btn-danger btn-xs">微博</a>
+                <a href="2016-10-09_about.html" class="btn btn-info btn-xs">关于</a>
+                <a href="atom.xml" target="_blank" class="btn btn-warning btn-xs">RSS</a>
             </p>
         </div>
     </div>
