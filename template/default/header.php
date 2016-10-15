@@ -38,16 +38,16 @@ body {background-color: #F2F2F2;}
 }
 
 .comment,
-#article article,
-#article .page-header,
+#article,
 #articleList .page-header {
     background-color:#FFF;
-    padding:40px;
+    padding:39px;
     border:1px solid #dadada;
     margin:30px 0;
 }
 
-.comment .page-header {
+.comment .page-header,
+#article .page-header {
     margin:0;
 }
 
@@ -56,6 +56,7 @@ body {background-color: #F2F2F2;}
 #articleList .page-header h2 {
     margin: 0px;
 }
+
 #articleList .page-header h2 a {
     color:#000;
 }
@@ -70,6 +71,15 @@ body {background-color: #F2F2F2;}
     margin-top:30px;
 }
 
+
+#article .page-header p.status{
+    margin-bottom:20px;
+}
+
+article {
+    margin-top: 30px;
+}
+
 #articleList .page-header h2 a {
     color: #444;
 }
@@ -82,8 +92,7 @@ body {background-color: #F2F2F2;}
 
 @media (max-width: 480px) {
     .comment,
-    #article article,
-    #article .page-header,
+    #article,
     #articleList .page-header {
         padding:20px;
         margin:20px 0;
@@ -111,12 +120,12 @@ body {background-color: #F2F2F2;}
             <h1><a href="index.html"><?php echo $this->title ?></a></h1>
             <p class="description"><?php echo $this->description ?></p>
             <p class="nav">
-                <a href="index.html" class="btn btn-default btn-xs">首页</a>
-                <a href="https://www.zhihu.com/people/pmzhang" target="_blank" class="btn btn-primary btn-xs">知乎</a>
-                <a href="http://weibo.com/citywill" target="_blank" class="btn btn-danger btn-xs">微博</a>
-                <a href="2016-10-09_about.html" class="btn btn-info btn-xs">关于</a>
-                <a href="atom.xml" target="_blank" class="btn btn-warning btn-xs">RSS</a>
+                <a href="index.html" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-home"></span></a>
+                <a href="https://www.zhihu.com/people/pmzhang" target="_blank" class="btn btn-primary btn-sm">知乎</a>
+                <a href="http://weibo.com/citywill" target="_blank" class="btn btn-danger btn-sm">微博</a>
+                <a href="2013-10-09_about.html" class="btn btn-info btn-sm">关于</a>
+                <a href="atom.xml" target="_blank" class="btn btn-warning btn-sm">RSS</a>
             </p>
         </div>
     </div>
-    <div class="container" style="padding-top:30px;padding-bottom:30px;">
+    <div class="container" style="padding-bottom:30px;">

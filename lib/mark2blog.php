@@ -113,10 +113,20 @@ class mark2blog
 
         foreach ($mdFiles as $mdFile) {
             list($fileWholeName, $fileExp) = explode('.', $mdFile);
+
             if ($fileExp == 'md') {
-                list($fileDate, $fileName) = explode('_', $fileWholeName);
+                $fileWholeArray = explode('_', $fileWholeName);
+
+                //判断md文件名是否合格
+                if (count($fileWholeArray) == 2) {
+                    list($fileDate, $fileName) = $fileWholeArray;
+                } else {
+                    continue;
+                }
+
                 $fileDate = strtotime($fileDate);
                 $fileName = trim($fileName);
+
                 //判断md文件名是否合格
                 if (!$fileDate || !$fileName) {
                     continue;
@@ -150,15 +160,31 @@ class mark2blog
         foreach ($pages as $pageCurrent => $articles) {
             $assign['articles'] = $articles;
             $assign['title'] = $pageCurrent ? ('第' . ($pageCurrent + 1) . '页') : '';
+
+            //当前页
             $assign['pageCurrent'] = $pageCurrent;
+
+            //页总数
             $assign['pageCount'] = $pageCount;
 
             //获得分页
             $assign['pagination'] = $this->getPagination($pageCount, $pageCurrent);
 
+            //获得上一页、下一页
+            $assign['previous'] = $assign['next'] = null;
+            if (count($assign['pagination']) > 0) {
+                if (isset($assign['pagination'][$assign['pageCurrent'] - 1])) {
+                    $assign['previous'] = $assign['pagination'][$assign['pageCurrent'] - 1];
+                }
+                if (isset($assign['pagination'][$assign['pageCurrent'] + 1])) {
+                    $assign['next'] = $assign['pagination'][$assign['pageCurrent'] + 1];
+                }
+            }
+
             //生成列表页
             $this->generateHtml('index', $assign['pagination'][$pageCurrent]['filename'], $assign);
         }
+
         $this->generated['index'] = $pageCount;
     }
 
@@ -216,6 +242,10 @@ class mark2blog
         ';
 
         foreach ($articles as $key => $value) {
+            $value['wholename'] = isset($value['wholename']) ? $value['wholename'] : '';
+            $value['excerpt'] = isset($value['excerpt']) ? $value['excerpt'] : '';
+            $value['data'] = isset($value['data']) ? $value['data'] : '';
+
             $rss .= '
                 <item>
                     <title><![CDATA[' . $value['title'] . ']]></title>

@@ -32,14 +32,28 @@
 
 </div>
 
+<?php
+/* if (count($assign['pagination']) > 1): ?>
+<nav>
+<ul class="pagination">
+<?php foreach ($assign['pagination'] as $page): ?>
+<li <?php if ($page['active']): ?>class="active"<?php endif?>>
+<a href="<?php echo $page['filename'] ?>.html"><?php echo $page['name'] ?></a>
+</li>
+<?php endforeach?>
+</ul>
+</nav>
+<?php endif;*/?>
+
 <?php if (count($assign['pagination']) > 1): ?>
 <nav>
-    <ul class="pagination">
-    <?php foreach ($assign['pagination'] as $page): ?>
-        <li <?php if ($page['active']): ?>class="active"<?php endif?>>
-            <a href="<?php echo $page['filename'] ?>.html"><?php echo $page['name'] ?></a>
-        </li>
-    <?php endforeach?>
+    <ul class="pager">
+<?php if (isset($assign['previous'])): ?>
+        <li class="previous"><a href="<?php echo $assign['previous']['filename'] ?>.html">&larr; 上一页</a></li>
+<?php endif?>
+<?php if (isset($assign['next'])): ?>
+        <li class="next"><a href="<?php echo $assign['next']['filename'] ?>.html">下一页 &rarr;</a></li>
+<?php endif?>
     </ul>
 </nav>
 <?php endif?>
