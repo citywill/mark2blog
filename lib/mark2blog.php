@@ -58,7 +58,7 @@ class mark2blog
 
             if (isset($head['type']) && $head['type'] == 'single') {
                 //生成独立文章
-                $this->generateHtml('article', $wholeName, $data);
+                $this->generateHtml('article', $mdFile['fileName'], $data);
             } else {
                 //准备索引文章数据
                 $articles[$wholeName] = $data;

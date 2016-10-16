@@ -123,7 +123,7 @@ article {
                 <a href="index.html" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-home"></span></a>
                 <a href="https://www.zhihu.com/people/pmzhang" target="_blank" class="btn btn-primary btn-sm">知乎</a>
                 <a href="http://weibo.com/citywill" target="_blank" class="btn btn-danger btn-sm">微博</a>
-                <a href="2013-10-09_about.html" class="btn btn-info btn-sm">关于</a>
+                <a href="about.html" class="btn btn-info btn-sm">关于</a>
                 <a href="atom.xml" target="_blank" class="btn btn-warning btn-sm">RSS</a>
             </p>
         </div>
