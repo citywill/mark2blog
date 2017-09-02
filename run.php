@@ -19,6 +19,7 @@ $mark2blog->run();
 $generated = $mark2blog->generated;
 
 exec('cd ' . $m2bConfig['htmlPath']);
+echo 'cd ' . $m2bConfig['htmlPath'];
 exec('git commit -am "update"');
 exec('git push origin');
 
