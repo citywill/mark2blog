@@ -20,6 +20,7 @@ $generated = $mark2blog->generated;
 
 exec('cd ./');
 exec('cd ../citywill.github.io');
+exec('pwd');
 exec('git commit -am "update"');
 exec('git push origin');
 
