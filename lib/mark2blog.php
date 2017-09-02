@@ -10,7 +10,7 @@ class mark2blog
     public $pageSize = 10;
     public $mdPath = 'markdown';
     public $htmlPath = 'html';
-    public $tmplPath = 'template';
+    public $tmplPath = 'template/default';
     public $generated;
 
     /**
